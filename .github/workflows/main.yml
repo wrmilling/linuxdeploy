@@ -50,7 +50,7 @@ jobs:
       - name: Test coverage (aarch64)
         if: matrix.BUILD_TYPE == 'coverage' && matrix.ARCH == 'aarch64'
         run: |
-          docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v $(pwd):/home/linuxdeploy/ -i "arm64v8/ubuntu:latest"  <<-'EOF'
+          docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v $(pwd):/home/linuxdeploy/ -e ARCH=$ARCH -i "arm64v8/ubuntu:latest"  <<-'EOF'
             export DEBIAN_FRONTEND=noninteractive
             apt-get update
             apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
@@ -65,7 +65,7 @@ jobs:
       - name: Build, test and build AppImage (aarch64)
         if: matrix.BUILD_TYPE != 'coverage' && matrix.ARCH == 'aarch64'
         run: |
-         docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v $(pwd):/home/linuxdeploy/ -i "arm64v8/ubuntu:latest" <<-'EOF'
+         docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v $(pwd):/home/linuxdeploy/ -e ARCH=$ARCH -i "arm64v8/ubuntu:latest" <<-'EOF'
             export DEBIAN_FRONTEND=noninteractive
             apt-get update
             apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
