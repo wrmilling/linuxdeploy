@@ -18,7 +18,7 @@ case "$ARCH" in
         export CFLAGS="-m32"
         export CXXFLAGS="-m32"
         ;;
-    "arm64")
+    "aarch64")
         ;;
     *)
         echo "Error: unsupported architecture: $ARCH"

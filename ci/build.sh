@@ -32,7 +32,7 @@ if [ "$ARCH" == "x86_64" ]; then
 elif [ "$ARCH" == "i386" ]; then
     EXTRA_CMAKE_ARGS=("-DCMAKE_TOOLCHAIN_FILE=$REPO_ROOT/cmake/toolchains/i386-linux-gnu.cmake" "-DUSE_SYSTEM_CIMG=OFF")
     CMAKE_ARCH="x86_64"
-elif [ "$ARCH" == "arm64" ]; then
+elif [ "$ARCH" == "aarch64" ]; then
     EXTRA_CMAKE_ARGS=()
     CMAKE_ARCH="aarch64"
 else
