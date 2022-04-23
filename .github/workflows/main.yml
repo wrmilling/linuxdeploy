@@ -51,8 +51,8 @@ jobs:
         if: matrix.BUILD_TYPE == 'coverage' && matrix.ARCH == 'aarch64'
         run: |
           docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -i "arm64v8/ubuntu:latest"  <<-'EOF'
-            sudo apt-get update
-            sudo apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
+            apt-get update
+            apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
             bash -ex ci/test-coverage.sh
           EOF
 
@@ -64,8 +64,8 @@ jobs:
         if: matrix.BUILD_TYPE != 'coverage' && matrix.ARCH == 'aarch64'
         run: |
          docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -i "arm64v8/ubuntu:latest" <<-'EOF'
-            sudo apt-get update
-            sudo apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
+            apt-get update
+            apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
             bash -ex ci/build.sh
           EOF
 
