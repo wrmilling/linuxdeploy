@@ -53,7 +53,7 @@ jobs:
           docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v $(pwd):/home/linuxdeploy/ -e ARCH=$ARCH -i "arm64v8/ubuntu:latest"  <<-'EOF'
             export DEBIAN_FRONTEND=noninteractive
             apt-get update
-            apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
+            apt-get install -y build-essential wget gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
             cd /home/linuxdeploy/
             bash -ex ci/test-coverage.sh
           EOF
@@ -68,7 +68,7 @@ jobs:
          docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v $(pwd):/home/linuxdeploy/ -e ARCH=$ARCH -i "arm64v8/ubuntu:latest" <<-'EOF'
             export DEBIAN_FRONTEND=noninteractive
             apt-get update
-            apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
+            apt-get install -y build-essential wget gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
             cd /home/linuxdeploy/
             bash -ex ci/build.sh
           EOF
