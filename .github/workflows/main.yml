@@ -68,7 +68,7 @@ jobs:
           EOF
 
       - name: Build, test and build AppImage
-        if: matrix.BUILD_TYPE != 'coverage' && matrix.ARCH != 'aarch64
+        if: matrix.BUILD_TYPE != 'coverage' && matrix.ARCH != 'aarch64'
         run: bash -ex ci/build.sh
 
       - name: Archive artifacts
