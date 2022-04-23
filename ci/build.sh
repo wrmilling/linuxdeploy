@@ -42,7 +42,7 @@ fi
 
 # fetch up-to-date CMake
 mkdir cmake-prefix
-wget -O- https://github.com/Kitware/CMake/releases/download/v3.18.1/cmake-3.23.1-Linux-$CMAKE_ARCH.tar.gz | tar -xz -C cmake-prefix --strip-components=1
+wget -O- https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-Linux-$CMAKE_ARCH.tar.gz | tar -xz -C cmake-prefix --strip-components=1
 export PATH="$(readlink -f cmake-prefix/bin):$PATH"
 cmake --version
 
