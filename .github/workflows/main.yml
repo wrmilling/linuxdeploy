@@ -41,12 +41,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gcovr libmagic-dev:i386 libjpeg-dev:i386 libpng-dev:i386 libboost-filesystem-dev:i386 libboost-regex-dev:i386 cimg-dev gcc-multilib g++-multilib libfuse2:i386
 
+      - name: Install dependencies (aarch64)
+        if: matrix.ARCH == 'aarch64'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu binfmt-support qemu-user-static
+
       - name: Test coverage (aarch64)
         if: matrix.BUILD_TYPE == 'coverage' && matrix.ARCH == 'aarch64'
         run: |
-          docker rm $(docker create --volume qemu-user-static:/usr/bin multiarch/qemu-user-static:aarch64 dummy)
-          docker run --rm --privileged --volume qemu-user-static:/usr/bin:ro multiarch/qemu-user-static:register --persistent yes
-          docker run --rm -i "arm64v8/ubuntu:latest"  <<-'EOF'
+          docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -i "arm64v8/ubuntu:latest"  <<-'EOF'
             sudo apt-get update
             sudo apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
             bash -ex ci/test-coverage.sh
@@ -59,9 +63,7 @@ jobs:
       - name: Build, test and build AppImage (aarch64)
         if: matrix.BUILD_TYPE != 'coverage' && matrix.ARCH == 'aarch64'
         run: |
-          docker rm $(docker create --volume qemu-user-static:/usr/bin multiarch/qemu-user-static:aarch64 dummy)
-          docker run --rm --privileged --volume qemu-user-static:/usr/bin:ro multiarch/qemu-user-static:register --persistent yes
-          docker run --rm -i "arm64v8/ubuntu:latest"  <<-'EOF'
+         docker run -v $(pwd)/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -i "arm64v8/ubuntu:latest" <<-'EOF'
             sudo apt-get update
             sudo apt-get install -y gcovr libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev cimg-dev
             bash -ex ci/build.sh
